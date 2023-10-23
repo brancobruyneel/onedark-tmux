@@ -40,23 +40,23 @@ main() {
 
 	# status
 	set status "on"
-	set status-bg "${thm_bg}"
+	set status-bg "${black}"
 	set status-justify "left"
 	set status-left-length "100"
 	set status-right-length "100"
 
 	# messages
-	set message-style "fg=${thm_cyan},bg=${thm_gray},align=centre"
-	set message-command-style "fg=${thm_cyan},bg=${thm_gray},align=centre"
+	set message-style "fg=${white},bg=${black},align=centre"
+	set message-command-style "fg=${white},bg=${black},align=centre"
 
 	# panes
-	set pane-border-style "fg=${thm_gray}"
-	set pane-active-border-style "fg=${thm_blue}"
+	set pane-border-style "fg=${line}"
+	set pane-active-border-style "fg=${nord_blue}"
 
 	# windows
-	setw window-status-activity-style "fg=${thm_fg},bg=${thm_bg},none"
+	setw window-status-activity-style "fg=${white},bg=${black},none"
 	setw window-status-separator ""
-	setw window-status-style "fg=${thm_fg},bg=${thm_bg},none"
+	setw window-status-style "fg=${white},bg=${black},none"
 
 	# --------=== Statusline
 
@@ -87,37 +87,25 @@ main() {
 
 	# These variables are the defaults so that the setw and set calls are easier to parse.
 	local show_directory
-	readonly show_directory="#[fg=$thm_pink,bg=$thm_bg,nobold,nounderscore,noitalics]$right_separator#[fg=$thm_bg,bg=$thm_pink,nobold,nounderscore,noitalics]  #[fg=$thm_fg,bg=$thm_gray] #{b:pane_current_path} #{?client_prefix,#[fg=$thm_red]"
+	readonly show_directory="#[fg=$red,bg=$one_bg,nobold,nounderscore,noitalics]$right_separator#[fg=$one_bg,bg=$blue,nobold,nounderscore,noitalics]  #[fg=$thm_fg,bg=$thm_gray] #{b:pane_current_path} #{?client_prefix,#[fg=$thm_red]"
 
 	local show_window
-	readonly show_window="#[fg=$thm_pink,bg=$thm_bg,nobold,nounderscore,noitalics]$right_separator#[fg=$thm_bg,bg=$thm_pink,nobold,nounderscore,noitalics] #[fg=$thm_fg,bg=$thm_gray] #W #{?client_prefix,#[fg=$thm_red]"
+	readonly show_window="#[fg=$red,bg=$statusline_bg,nobold,nounderscore,noitalics]$right_separator#[fg=$black,bg=$red,nobold,nounderscore,noitalics] #[fg=$white,bg=$one_bg2] #W #{?client_prefix,#[fg=$green]"
 
 	local show_session
-	readonly show_session="#[fg=$thm_green]}#[bg=$thm_gray]$right_separator#{?client_prefix,#[bg=$thm_red],#[bg=$thm_green]}#[fg=$thm_bg] #[fg=$thm_fg,bg=$thm_gray] #S "
+	readonly show_session="#[fg=$nord_blue]}#[bg=$one_bg2]$right_separator#{?client_prefix,#[bg=$green],#[bg=$nord_blue]}#[fg=$black] #[fg=$white,bg=$one_bg2] #S "
 
 	local show_directory_in_window_status
-	#readonly show_directory_in_window_status="#[fg=$thm_bg,bg=$thm_blue] #I #[fg=$thm_fg,bg=$thm_gray] #{b:pane_current_path} "
-	readonly show_directory_in_window_status="#[fg=$thm_bg,bg=$thm_blue] #I #[fg=$thm_fg,bg=$thm_gray] #W "
+	readonly show_directory_in_window_status="#[fg=$one_bg,bg=$grey] #I #[fg=$white,bg=$one_bg] #W "
 
 	local show_directory_in_window_status_current
-	#readonly show_directory_in_window_status_current="#[fg=$thm_bg,bg=$thm_orange] #I #[fg=$thm_fg,bg=$thm_bg] #{b:pane_current_path} "
-	readonly show_directory_in_window_status_current="#[fg=colour232,bg=$thm_orange] #I #[fg=colour255,bg=colour237] #(echo '#{pane_current_path}' | rev | cut -d'/' -f-2 | rev) "
+	readonly show_directory_in_window_status_current="#[fg=$black,bg=$nord_blue] #I #[fg=$white,bg=$one_bg] #W "
 
 	local show_window_in_window_status
-	readonly show_window_in_window_status="#[fg=$thm_fg,bg=$thm_bg] #W #[fg=$thm_bg,bg=$thm_blue] #I#[fg=$thm_blue,bg=$thm_bg]$left_separator#[fg=$thm_fg,bg=$thm_bg,nobold,nounderscore,noitalics] "
+	readonly show_window_in_window_status="#[fg=$white,bg=$black] #W #[fg=$black,bg=$nord_blue] #I#[fg=$nord_blue,bg=$black]$left_separator#[fg=$nord_blue,bg=$black,nobold,nounderscore,noitalics] "
 
 	local show_window_in_window_status_current
-	readonly show_window_in_window_status_current="#[fg=$thm_fg,bg=$thm_gray] #W #[fg=$thm_bg,bg=$thm_orange] #I#[fg=$thm_orange,bg=$thm_bg]$left_separator#[fg=$thm_fg,bg=$thm_bg,nobold,nounderscore,noitalics] "
-	#setw -g window-status-current-format "#[fg=colour232,bg=$thm_orange] #I #[fg=colour255,bg=colour237] #(echo '#{pane_current_path}' | rev | cut -d'/' -f-2 | rev) "
-
-	local show_user
-	readonly show_user="#[fg=$thm_blue,bg=$thm_gray]$right_separator#[fg=$thm_bg,bg=$thm_blue] #[fg=$thm_fg,bg=$thm_gray] #(whoami) "
-
-	local show_host
-	readonly show_host="#[fg=$thm_blue,bg=$thm_gray]$right_separator#[fg=$thm_bg,bg=$thm_blue]󰒋 #[fg=$thm_fg,bg=$thm_gray] #H "
-
-	local show_date_time
-	readonly show_date_time="#[fg=$thm_blue,bg=$thm_gray]$right_separator#[fg=$thm_bg,bg=$thm_blue] #[fg=$thm_fg,bg=$thm_gray] $date_time "
+	readonly show_window_in_window_status_current="#[fg=$white,bg=$black] #W #[fg=$black,bg=$one_bg2] #I#[fg=$black,bg=$one_bg2]$left_separator#[fg=$black,bg=$one_bg2,nobold,nounderscore,noitalics] "
 
 	# Right column 1 by default shows the Window name.
 	local right_column1=$show_window
@@ -158,8 +146,8 @@ main() {
 
 	# --------=== Modes
 	#
-	setw clock-mode-colour "${thm_blue}"
-	setw mode-style "fg=${thm_pink} bg=${thm_black4} bold"
+	setw clock-mode-colour "${nord_blue}"
+	setw mode-style "fg=${nord_blue} bg=${black} bold"
 
 	tmux "${tmux_commands[@]}"
 }
