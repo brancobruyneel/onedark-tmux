@@ -28,7 +28,7 @@ setw() {
 
 main() {
 	local theme
-	theme="$(get_tmux_option "@onedark_flavour" "default")"
+	theme="$(get_tmux_option "@onedark_flavour" "dark")"
 
 	# Aggregate all commands in one array
 	local tmux_commands=()
