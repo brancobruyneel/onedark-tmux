@@ -90,10 +90,10 @@ main() {
 	readonly show_directory="#[fg=$red,bg=$one_bg,nobold,nounderscore,noitalics]$right_separator#[fg=$one_bg,bg=$blue,nobold,nounderscore,noitalics]  #[fg=$thm_fg,bg=$thm_gray] #{b:pane_current_path} #{?client_prefix,#[fg=$thm_red]"
 
 	local show_window
-	readonly show_window="#[fg=$red,bg=$statusline_bg,nobold,nounderscore,noitalics]$right_separator#[fg=$black,bg=$red,nobold,nounderscore,noitalics] #[fg=$white,bg=$one_bg2] #W #{?client_prefix,#[fg=$green]"
+	readonly show_window="#[fg=$red,bg=$statusline_bg,nobold,nounderscore,noitalics]$right_separator#[fg=$black,bg=$red,nobold,nounderscore,noitalics] #[fg=$white,bg=$one_bg2] #W "
 
 	local show_session
-	readonly show_session="#[fg=$nord_blue]}#[bg=$one_bg2]$right_separator#{?client_prefix,#[bg=$green],#[bg=$nord_blue]}#[fg=$black] #[fg=$white,bg=$one_bg2] #S "
+	readonly show_session="#{?client_prefix,#[fg=$green],#[fg=$nord_blue]}#[bg=$black]$right_separator#{?client_prefix,#[bg=$green],#[bg=$nord_blue]}#[fg=$black] #[fg=$white,bg=$one_bg2] #S "
 
 	local show_directory_in_window_status
 	readonly show_directory_in_window_status="#[fg=$one_bg,bg=$grey] #I #[fg=$white,bg=$one_bg] #W "
@@ -117,29 +117,9 @@ main() {
 	local window_status_format=$show_directory_in_window_status
 	local window_status_current_format=$show_directory_in_window_status_current
 
-	# NOTE: With the @onedark_window_tabs_enabled set to on, we're going to
-	# update the right_column1 and the window_status_* variables.
-	if [[ "${wt_enabled}" == "on" ]]; then
-		right_column1=$show_directory
-		window_status_format=$show_window_in_window_status
-		window_status_current_format=$show_window_in_window_status_current
-	fi
-
-	if [[ "${user}" == "on" ]]; then
-		right_column2=$right_column2$show_user
-	fi
-
-	if [[ "${host}" == "on" ]]; then
-		right_column2=$right_column2$show_host
-	fi
-
-	if [[ "${date_time}" != "off" ]]; then
-		right_column2=$right_column2$show_date_time
-	fi
-
 	set status-left ""
 
-	set status-right "${right_column1},${right_column2}"
+	set status-right "${right_column2}"
 
 	setw window-status-format "${window_status_format}"
 	setw window-status-current-format "${window_status_current_format}"
