@@ -36,7 +36,7 @@ main() {
 	# NOTE: Pulling in the selected theme by the theme that's being set as local
 	# variables.
 	# shellcheck source=onedark.tmuxtheme
-	source /dev/stdin <<<"$(sed -e "/^[^#].*=/s/^/local /" "${PLUGIN_DIR}-${theme}/onedark.tmuxtheme")"
+	source /dev/stdin <<<"$(sed -e "/^[^#].*=/s/^/local /" "${PLUGIN_DIR}/onedark-${theme}/onedark.tmuxtheme")"
 
 	# status
 	set status "on"
