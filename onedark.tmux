@@ -26,9 +26,48 @@ setw() {
 	tmux_commands+=(set-window-option -gq "$option" "$value" ";")
 }
 
+detect_appearance() {
+	if [ "$(uname)" = "Darwin" ]; then
+		if [ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]; then
+			echo "dark"
+		else
+			echo "light"
+		fi
+		return
+	fi
+
+	if command -v gdbus >/dev/null 2>&1; then
+		local portal_value
+		portal_value="$(gdbus call --session \
+			--dest=org.freedesktop.portal.Desktop \
+			--object-path=/org/freedesktop/portal/desktop \
+			--method=org.freedesktop.portal.Settings.Read \
+			org.freedesktop.appearance color-scheme 2>/dev/null)"
+		case "$portal_value" in
+			*"uint32 1"*) echo "dark"; return ;;
+			*"uint32 2"*) echo "light"; return ;;
+		esac
+	fi
+
+	if command -v gsettings >/dev/null 2>&1; then
+		local gnome_value
+		gnome_value="$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null)"
+		case "$gnome_value" in
+			*prefer-dark*) echo "dark"; return ;;
+			*prefer-light*|*default*) echo "light"; return ;;
+		esac
+	fi
+
+	echo "dark"
+}
+
 main() {
 	local theme
 	theme="$(get_tmux_option "@onedark_flavour" "dark")"
+
+	if [ "$theme" = "auto" ]; then
+		theme="$(detect_appearance)"
+	fi
 
 	# Aggregate all commands in one array
 	local tmux_commands=()
